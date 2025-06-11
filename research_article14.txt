@@ -1,0 +1,84 @@
+The role of AI in modern education
+August 27, 2024 08:32 PM
+classroom with overlay images of chalk drawings
+Like so many of the technologies that have changed the world, artificial intelligence (AI) developed over many years before it seemed to suddenly burst on the scene. Today, AI is ubiquitous and offers revolutionary potential for education.
+
+With AI, educators can tailor learning experiences to individual student needs, making education more effective and engaging. AI-enabled technologies also assist in administrative tasks, streamlining operations and freeing up educators to focus on teaching. Learn more about how teachers and school administrators are using AI-powered tools today and the possibilities for the future of artificial intelligence in education.
+
+A short history of AI systems development
+The term "artificial intelligence" was actually coined in 1956. In that year, John McCarthy, a Dartmouth College professor, organized a pivotal workshop that coined the term "artificial intelligence" and aimed to create machines capable of reasoning and using human language.1
+
+After a fast start, research interest in AI cooled for a few decades before developments in computer technology drove a resurgence in the 1990s with advances in machine learning and neural networks. The public release of Chat GPT in 2022 marked a significant milestone, showcasing unprecedented capabilities in natural language understanding and generation, and fueling further advancements in AI. Today, AI significantly impacts various sectors, from healthcare to finance, manufacturing, and transportation. Many think it is also poised to revolutionize education.2
+
+Paving the way for AI tools in education
+Computer-assisted instruction (CAI) began in the 1960s, presenting instructional material with expensive mainframe computers. As computer technology became smaller and more affordable, more schools were able to adopt CAI.
+
+Intelligent tutoring systems emerged with the advent of desktop computers, offering tutorial programs that provided immediate feedback and tailored learning paths based on student responses. These systems demonstrated the potential benefits of personalized learning, making technology adoption in education increasingly attractive.3
+
+Current applications of AI in education
+AI is transforming K-12 education by offering innovative solutions in personalized learning, adaptive learning platforms, intelligent tutoring systems, automated grading and feedback, and administrative tasks.
+
+Personalized learning
+AI in education facilitates individualized learning by tailoring instructional content to individual student needs, benefiting students, teachers, and resource-constrained schools. This approach allows students to progress at their own pace, engage with activities aligned with their learning styles, and gain more autonomy over their educational journeys. Using AI assistants to differentiate assignments and devise data-driven, adaptive practices enhances the overall learning experience with minimal increase to the teacher's workload.4
+
+Intelligent tutoring systems
+AI tutor systems can provide adaptive, accessible learning experiences, offering immediate feedback and corrective guidance based on student performance. These applications of modern educational technology are helping to close learning gaps, improve conceptual understanding, and free up teacher time by handling routine instructional tasks and providing detailed data on the student's learning process.5, 6
+
+Automated grading and feedback
+Traditional grading for written work often involves subjectivity and biases, as teachers’ evaluations can be influenced by personal preferences, moods, and unconscious prejudices. This lack of objectivity can result in inconsistent and unfair assessments. Additionally, the time-consuming nature of grading large numbers of assignments limits teachers' capacity to provide thorough feedback, potentially hindering student learning.7
+
+Integrating AI into the grading process is revolutionizing traditional approaches to evaluating student performance. AI can enhance grading efficiency, precision, and fairness by significantly reducing grading time and providing instant, detailed feedback. This allows teachers to assign more writing tasks and offer timely, constructive feedback, which fosters better writing skills in students.7
+
+However, it's essential that teachers critically review AI-generated feedback to ensure it aligns with educational goals and addresses individual student needs. AI tools should be seen as assistants rather than replacements, helping teachers focus on assessing creativity and critical thinking while AI assists teachers with more objective metrics like grammar and structure. By staying engaged in the grading process and spot-checking AI output, teachers can maintain the integrity of assessments and ensure students receive meaningful and accurate feedback.8, 9
+
+Administrative applications
+Artificial intelligence tools can streamline lesson planning and content creation, saving teachers valuable time. These AI tools can generate high-quality images, customized content, and focused research materials under tight time constraints. By using AI for efficient research and content generation, teachers can enhance lesson quality without increasing their workload, ultimately benefiting both students and resource-constrained schools.10
+
+School principals can also leverage AI technologies to reduce their substantial administrative burdens. AI chatbots assist with automating administrative tasks such as drafting emails, organizing schedules, and developing professional development sessions. AI models can be used to analyze large datasets to inform decision-making, like scheduling summer classes based on parent preferences. This allows administrators to focus more on strategic initiatives, human interaction and relationship-building.11
+
+Some ways teachers are using generative AI tools
+Teachers are finding many different ways to use AI capabilities to enhance learning outcomes. Two notable applications include creating visual aids for vocabulary instruction and planning engaging math lessons.
+
+Support for vocabulary instruction
+An instructional designer has helped teachers create visuals for many different grade levels and subjects using AI. Her tips for doing so include:12
+
+Identify challenging vocabulary words for upcoming lessons
+Choose an AI tool that fits your needs and is easy to access
+Craft specific prompts to generate images that illustrate vocabulary words
+Share and credit the AI-generated images with students to introduce the concept of AI 
+Math lesson planning using artificial intelligence
+The author, a high school math teacher and instructional coach, explains how to use generative AI to assist teachers in planning engaging math lessons. Her steps include:13
+
+Use AI to connect math topics to real-world applications and student interests
+Generate word problems, performance tasks, and projects that align with curriculum standards
+Design comprehensive lesson plans with essential questions, practice problems, and extension opportunities
+Use AI to create inquiry-based activities that develop critical thinking and quantitative literacy skills 
+For more ideas from teachers, visit Edutopia.org or search online using your favorite AI-enabled search tool.
+
+AI-driven learning
+AI applications in education can foster interactive collaboration and facilitate content creation and curation for students and teachers alike. These tools help teachers develop content aligned with curriculum standards, ensuring that educational materials effectively meet diverse student needs. Interactive tools like virtual labs and educational games engage students, while collaborative platforms facilitate peer learning. Teachers can use these technologies and the data-driven insights they provide to personalize learning paths and offer adaptive feedback, enhancing the overall learning experience.
+
+The future of AI in education
+The widespread adoption of AI in the last few years, including its growing use in schools, has caused reactions ranging from outright banning to enthusiastic embrace. Because the tools will continue to evolve and change the way we operate in all areas of life, teachers and educational administrators need to come to terms with several ethical considerations about AI in education.
+
+Concerns about privacy, bias, and equity
+Privacy is one major concern with artificial intelligence in education. AI tools often collect and process large amounts of data, raising questions about how this data is used and protected. To address this, educators should ensure transparency by informing students and parents about the data collected and seeking consent before using AI tools.14
+
+Bias in AI is another significant issue, as AI systems can inherit biases from their training data, leading to unfair or discriminatory outcomes. Educators should be aware of these biases and seek to use AI tools that have been rigorously tested for fairness. Additionally, incorporating diverse perspectives in AI development and regularly spot-checking for bias can help mitigate problems.15
+
+Equity concerns arise when considering access to AI tools. Not all students have equal access to technology, which can widen the digital divide. Schools should strive to provide equitable access to AI resources and offer training for both students and teachers to ensure everyone can benefit from these tools.14
+
+Concerns about student use of AI
+Teachers worry about students using AI technology to bypass learning, such as using it to complete assignments. One way to address this is by designing assignments that require personal engagement and critical thinking, which are harder for AI technologies to replicate.9
+
+Teaching AI literacy is crucial. Students should understand AI's capabilities and limitations, including the potential for AI systems to generate biased or inaccurate content. Encouraging students to leverage AI tools for learning rather than shortcut assignments will help maintain academic integrity.15
+
+By considering these concerns and implementing thoughtful strategies, educators and administrators can harness AI's benefits while addressing its potential drawbacks.
+
+AI technology implementation challenges and best practices
+Resistance to change, high costs, and infrastructure needs are key challenges in implementing AI in education. Best practices for implementing artificial intelligence in education are similar to those for integrating any education technology. They include providing thorough training for educators, ensuring equitable access to AI tools, addressing ethical concerns, and maintaining open communication with all stakeholders to foster a supportive and informed community.
+
+Confidently meet the future of AI in education with the University of Iowa
+AI in education offers transformative potential by personalizing learning, streamlining administrative tasks, and enhancing instructional quality. However, ethical concerns such as privacy, bias, and equity remain significant challenges. By addressing these issues and implementing best practices, educators can harness AI’s benefits while maintaining academic integrity and equity.
+
+The University of Iowa Online MA in Teaching, Leadership, and Cultural Competency program prepares you with the hands-on skills and theoretical frameworks to teach effectively today and tomorrow. Supported by the power of a Big Ten research university, the curriculum offers a balance of instruction on pedagogical, assessment, administrative, and technology topics within a framework of cultural competency. Schedule a call with an admissions outreach advisor to learn more about the powerful curriculum and the convenience of the online format.

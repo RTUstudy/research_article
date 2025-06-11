@@ -1,0 +1,453 @@
+Frame-by-Frame: Tracking Emotions in Videos with AI
+John Solomon Legara
+John Solomon Legara
+
+Follow
+14 min read
+·
+Jun 11, 2023
+59
+
+
+
+
+In today’s world, our deepest emotions often express themselves not through words but through the subtle nuances of our facial expressions. These momentary flickers of emotion, whether a brief smile or a brief look of surprise, often convey far more than words ever could. But what if we could harness the power of Artificial Intelligence (AI) to explore this realm of unspoken emotion? What if we could train a machine to understand and interpret human emotions by simply analyzing facial expressions? Welcome to the fascinating journey of emotion recognition through AI.
+
+In this notebook, we dive into the intricate emotion recognition process from video data using AI, driven by an exciting blend of Python libraries and transformative AI models. Our guide through this journey is the ViT-Face-Expression model from Hugging Face, a transformer-based pre-trained model explicitly designed for emotion detection tasks.
+
+We’ll utilize a broad array of Python libraries to navigate this fascinating landscape. We’ll use numpy and pandasfor data manipulation, matplotlib and seaborn for data visualization, and moviepy for video processing. To handle images, we'll leverage the power of the Python Imaging Library (PIL). We'll employ facenet_pytorch's MTCNN for accurate face detection and transformers for leveraging the cutting-edge ViT-Face-Expression model.
+
+Join us as we walk through detecting emotions in real-time, frame by frame, in a video clip. We’ll tackle various challenges, including face detection, handling frames with no detected faces, and visualizing the changing probabilities of each emotion throughout the video. We’ll also discuss interpreting our results and emotion recognition’s broader applications and implications.
+
+Importing the Libraries
+
+import os
+
+# Set cache directories for XDG and Hugging Face Hub
+os.environ['XDG_CACHE_HOME'] = '/home/msds2023/jlegara/.cache'
+os.environ['HUGGINGFACE_HUB_CACHE'] = '/home/msds2023/jlegara/.cache'
+
+import torch
+
+# Set device to GPU if available, otherwise use CPU
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+print('Running on device: {}'.format(device))
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+import seaborn as sns
+from tqdm.notebook import tqdm
+
+from moviepy.editor import VideoFileClip, ImageSequenceClip
+
+import torch
+from facenet_pytorch import (MTCNN)
+
+from transformers import (AutoFeatureExtractor,
+                          AutoModelForImageClassification,
+                          AutoConfig)
+                             
+from PIL import Image, ImageDraw
+Load Video Data
+
+# Load your video
+scene = 'White Chicks - short.mp4'
+clip = VideoFileClip(scene)
+
+# Save video frames per second
+vid_fps = clip.fps
+
+# Get the video (as frames)
+video = clip.without_audio()
+video_data = np.array(list(video.iter_frames()))
+Detecting Single-Frame Emotions
+The detect_emotions(image) function is a central piece of our emotion detection process for single-frame emotion detection. It takes as input a single image frame (in PIL Image format) and performs several operations to ultimately display the detected face and a bar plot of the corresponding emotion probabilities.
+
+First, the function creates a copy of the image to draw on to make sure we do not overwrite the original image. It then utilizes the MTCNN model, a popular deep learning-based face detector, to detect faces within the image. If a face is detected, the function crops the face from the image using the bounding box coordinates returned by MTCNN.
+
+Next, it pre-processes the cropped face to match the input format required by our emotion detection model. The pre-processed face image is then passed through the emotion detection model, which returns logits representing the raw prediction scores for each emotion class. These logits are transformed into probabilities using the softmax function.
+
+The function then retrieves the mapping of class IDs to class labels (i.e., emotion names) using the pretrained trpakov/vit-face-expression model's configuration. This mapping is used to convert the class probabilities (converted to a Python list) into a dictionary that associates each emotion label with its corresponding probability.
+
+Finally, the function uses matplotlib and seaborn to create a figure with two subplots — one for displaying the detected face and the other for visualizing the emotion probabilities as a horizontal bar plot. The bars are color-coded according to the emotion they represent. The resulting figure provides a visual understanding of the emotion detection model’s predictions for the given image frame.
+
+def detect_emotions(image):
+    """
+    Detect emotions from a given image, displays the detected
+    face and the emotion probabilities in a bar plot.
+
+    Parameters:
+    image (PIL.Image): The input image.
+
+    Returns:
+    PIL.Image: The cropped face from the input image.
+    """
+    
+    # Create a copy of the image to draw on
+    temporary = image.copy()
+
+    # Use the MTCNN model to detect faces in the image
+    sample = mtcnn.detect(temporary)
+
+    # If a face is detected
+    if sample[0] is not None:
+        
+        # Get the bounding box coordinates of the face
+        box = sample[0][0]
+        
+        # Crop the detected face from the image
+        face = temporary.crop(box)
+
+        # Pre-process the cropped face to be fed into the
+        # emotion detection model
+        inputs = extractor(images=face, return_tensors="pt")
+
+        # Pass the pre-processed face through the model to
+        # get emotion predictions
+        outputs = model(**inputs)
+
+        # Apply softmax to the logits to get probabilities
+        probabilities = torch.nn.functional.softmax(outputs.logits,
+                                                    dim=-1)
+
+        # Retrieve the id2label attribute from the configuration
+        id2label = AutoConfig.from_pretrained(
+            "trpakov/vit-face-expression"
+        ).id2label
+
+        # Convert probabilities tensor to a Python list
+        probabilities = probabilities.detach().numpy().tolist()[0]
+
+        # Map class labels to their probabilities
+        class_probabilities = {id2label[i]: prob for i,
+                               prob in enumerate(probabilities)}
+
+        # Define colors for each emotion
+        colors = {
+            "angry": "red",
+            "disgust": "green",
+            "fear": "gray",
+            "happy": "yellow",
+            "neutral": "purple",
+            "sad": "blue",
+            "surprise": "orange"
+        }
+        palette = [colors[label] for label in class_probabilities.keys()]
+
+        # Prepare a figure with 2 subplots: one for the face image,
+        # one for the bar plot
+        fig, axs = plt.subplots(1, 2, figsize=(15, 6))
+
+        # Display the cropped face in the left subplot
+        axs[0].imshow(np.array(face))
+        axs[0].axis('off')
+
+        # Create a horizontal bar plot of the emotion probabilities in
+        # the right subplot
+        sns.barplot(ax=axs[1],
+                    y=list(class_probabilities.keys()),
+                    x=[prob * 100 for prob in class_probabilities.values()],
+                    palette=palette,
+                    orient='h')
+        axs[1].set_xlabel('Probability (%)')
+        axs[1].set_title('Emotion Probabilities')
+        axs[1].set_xlim([0, 100])  # Set x-axis limits to show percentages
+
+        # Show the plot
+        plt.show()
+# Initialize MTCNN model for single face cropping
+mtcnn = MTCNN(
+    image_size=160,
+    margin=0,
+    min_face_size=200,
+    thresholds=[0.6, 0.7, 0.7],
+    factor=0.709,
+    post_process=True,
+    keep_all=False,
+    device=device
+)
+    
+# Load the pre-trained model and feature extractor
+extractor = AutoFeatureExtractor.from_pretrained(
+    "trpakov/vit-face-expression"
+)
+model = AutoModelForImageClassification.from_pretrained(
+    "trpakov/vit-face-expression"
+)
+This section of the code is used to test our emotion detection function on different frames from the video. Five frames (10th, 40th, 200th, 355th, and 380th) are chosen arbitrarily to provide a diverse sample of the video. For each chosen frame, the following steps are performed:
+
+The frame is retrieved from the video data (which is stored as a list of numpy arrays representing individual frames).
+The frame is converted into a PIL Image object. This is necessary because our detect_emotions function expects input in the form of a PIL Image.
+The detect_emotions function is called with the PIL Image as input. This function detects the face in the image, predicts the probabilities of different emotions, and displays the detected face alongside a bar plot of the predicted emotion probabilities.
+By observing the outputs for different frames, we can get a sense of how well our emotion detection function works across different instances in the video.
+
+# Choose a frame
+frame = video_data[10]  # choosing the 10th frame
+
+# Convert the frame to a PIL image and display it
+image = Image.fromarray(frame)
+detect_emotions(image)
+
+# Choose a frame
+frame = video_data[40]  # choosing the 40th frame
+
+# Convert the frame to a PIL image and display it
+image = Image.fromarray(frame)
+detect_emotions(image)
+
+# Choose a frame
+frame = video_data[200]  # choosing the 200th frame
+
+# Convert the frame to a PIL image and display it
+image = Image.fromarray(frame)
+detect_emotions(image)
+
+# Choose a frame
+frame = video_data[355]  # choosing the 355th frame
+
+# Convert the frame to a PIL image and display it
+image = Image.fromarray(frame)
+detect_emotions(image)
+
+# Choose a frame
+frame = video_data[380]  # choosing the 380th frame
+
+# Convert the frame to a PIL image and display it
+image = Image.fromarray(frame)
+detect_emotions(image)
+
+In the memorable car scene from the movie ‘White Chicks’, we see the characters Latrell Spencer and Marcus Copeland, who is undercover as Tiffany Wilson, sharing a car ride. During their lively sing-along to Vanessa Carlton’s ‘A Thousand Miles’, our emotion recognition system highlights some interesting dynamics.
+
+Marcus Copeland (Marlon Wayans), disguised as Tiffany Wilson, is found to exhibit emotions of fear and sadness, possibly a reflection of the character’s discomfort and anxiety in this hilarious scenario. On the other hand, Latrell Spencer (Terry Crews), who is enthusiastically belting out the song, is recognized by our model as displaying happiness.
+
+These findings underline the system’s ability to accurately recognize and differentiate between various emotional states, even in complex and humor-filled scenes such as this one. It’s a perfect example of how emotion detection technology can provide intriguing insights into our favorite on-screen moments.
+
+Frame-by-Frame Emotion Detection
+The detect_emotions function serves a crucial role in our frame-by-frame emotion detection pipeline. It takes an image as an input and initiates a two-step process.
+
+The first step involves the detection of faces in the image using the Multi-task Cascaded Convolutional Networks (MTCNN) model just like in our single frame detection. If a face is identified within the image, its region is extracted to form a new, cropped image.
+
+In the second step, this cropped face image undergoes a pre-processing routine to be prepared for the emotion detection model. This routine involves converting the image into a PyTorch tensor that the model can effectively interpret. The tensor is subsequently passed through our emotion detection model, which is based on a Vision Transformer (ViT) architecture, a state-of-the-art model in image classification tasks.
+
+The model generates predictions in the form of logits for each emotion. The softmax function then transforms these logits into probabilities. Using the id2label attribute from the model's configuration, we map the probabilities to their corresponding emotion labels. This results in a dictionary containing the predicted emotions and their associated probabilities.
+
+If the function does not detect any face in the image, it will return None for both the face image and class probabilities. This careful consideration ensures that our subsequent analysis is built upon valid and meaningful data, thereby boosting the reliability of our findings.
+
+def detect_emotions(image):
+    """
+    Detect emotions from a given image.
+    Returns a tuple of the cropped face image and a
+    dictionary of class probabilities.
+    """
+    temporary = image.copy()
+
+    # Detect faces in the image using the MTCNN group model
+    sample = mtcnn.detect(temporary)
+    if sample[0] is not None:
+        box = sample[0][0]
+
+        # Crop the face
+        face = temporary.crop(box)
+
+        # Pre-process the face
+        inputs = extractor(images=face, return_tensors="pt")
+
+        # Run the image through the model
+        outputs = model(**inputs)
+
+        # Apply softmax to the logits to get probabilities
+        probabilities = torch.nn.functional.softmax(outputs.logits,
+                                                    dim=-1)
+
+        # Retrieve the id2label attribute from the configuration
+        config = AutoConfig.from_pretrained(
+            "trpakov/vit-face-expression"
+        )
+        id2label = config.id2label
+
+        # Convert probabilities tensor to a Python list
+        probabilities = probabilities.detach().numpy().tolist()[0]
+
+        # Map class labels to their probabilities
+        class_probabilities = {
+            id2label[i]: prob for i, prob in enumerate(probabilities)
+        }
+
+        return face, class_probabilities
+    return None, None
+The create_combined_image function takes a detected face image and a dictionary of emotion probabilities as its inputs and generates a combined image, which portrays the face alongside a horizontal bar plot of emotion probabilities.
+
+In this function, we first establish a color-coding scheme for different emotions, assigning unique colors to each. The function then generates a new figure with two subplots, one for displaying the face image and the other for a bar plot of emotion probabilities.
+
+On the left subplot, the detected face is displayed without any axis, emphasizing the visual content over any numerical reference. On the right subplot, a seaborn horizontal bar plot is created, mapping each emotion to its probability. This bar plot offers an immediate visual comparison of the predicted emotions, serving as an effective emotional profile for the detected face.
+
+The function then converts the matplotlib figure containing the face and the plot into a numpy array using a canvas buffer. This conversion is essential for video reconstruction and for maintaining the integrity of the generated visual content. Finally, the function closes the figure to free up memory and returns the numpy array representing the combined image. This combined image provides a coherent visual summary, efficiently encapsulating the face image and its corresponding emotional probabilities side-by-side.
+
+def create_combined_image(face, class_probabilities):
+    """
+    Create an image combining the detected face and a barplot
+    of the emotion probabilities.
+
+    Parameters:
+    face (PIL.Image): The detected face.
+    class_probabilities (dict): The probabilities of each
+        emotion class.
+
+    Returns:
+    np.array: The combined image as a numpy array.
+    """
+    # Define colors for each emotion
+    colors = {
+        "angry": "red",
+        "disgust": "green",
+        "fear": "gray",
+        "happy": "yellow",
+        "neutral": "purple",
+        "sad": "blue",
+        "surprise": "orange"
+    }
+    palette = [colors[label] for label in class_probabilities.keys()]
+    
+    # Create a figure with 2 subplots: one for the
+    # face image, one for the barplot
+    fig, axs = plt.subplots(1, 2, figsize=(15, 6))
+
+    # Display face on the left subplot
+    axs[0].imshow(np.array(face))
+    axs[0].axis('off')
+
+    # Create a barplot of the emotion probabilities
+    # on the right subplot
+    sns.barplot(ax=axs[1],
+                y=list(class_probabilities.keys()),
+                x=[prob * 100 for prob in class_probabilities.values()],
+                palette=palette,
+                orient='h')
+    axs[1].set_xlabel('Probability (%)')
+    axs[1].set_title('Emotion Probabilities')
+    axs[1].set_xlim([0, 100])  # Set x-axis limits
+
+    # Convert the figure to a numpy array
+    canvas = FigureCanvas(fig)
+    canvas.draw()
+    img = np.frombuffer(canvas.tostring_rgb(), dtype='uint8')
+    img  = img.reshape(canvas.get_width_height()[::-1] + (3,))
+    
+    plt.close(fig)
+    return img
+The block of code is essentially reducing the video’s frame rate by a factor of two, resulting in a halved number of frames. This process, called frame skipping, helps optimize the computational efficiency of subsequent operations, such as emotion detection, which can be resource-intensive. The skips variable determines the number of frames to skip after each selected frame, and in this case, every second frame is being selected from the original video for further processing.
+
+skips = 2
+reduced_video = []
+
+for i in tqdm(range(0, len(video_data), skips)):
+    reduced_video.append(video_data[i])
+This section of code orchestrates the principal tasks of the project. For each frame in the reduced video dataset, the script is performing the following actions:
+
+It first converts the frame into the appropriate data type (uint8) to be compatible with the detect_emotions function.
+The detect_emotions function is then called, taking in each frame, converted into a PIL image, as input. The function returns the cropped face (if found) and the associated emotion probabilities.
+If a face was detected in the frame, a composite image is generated, combining the cropped face and a bar chart displaying the emotion probabilities. This image is then added to the combined_images list for later use.
+If no face was detected in the frame, the emotion probabilities are set to None for that particular frame.
+Finally, the emotion probabilities (or None if no face was detected) are appended to the all_class_probabilities list. This list accumulates the emotion probabilities for every frame and forms a key part of the output data for the project.
+# Define a list of emotions
+emotions = ["angry", "disgust", "fear", "happy", "neutral", "sad", "surprise"]
+
+# List to hold the combined images
+combined_images = []
+
+# Create a list to hold the class probabilities for all frames
+all_class_probabilities = []
+
+# Loop over video frames
+for i, frame in tqdm(enumerate(reduced_video),
+                     total=len(reduced_video),
+                     desc="Processing frames"):
+    # Convert frame to uint8
+    frame = frame.astype(np.uint8)
+
+    # Call detect_emotions to get face and class probabilities
+    face, class_probabilities = detect_emotions(Image.fromarray(frame))
+    
+    # If a face was found
+    if face is not None:
+        # Create combined image for this frame
+        combined_image = create_combined_image(face, class_probabilities)
+        
+        # Append combined image to the list
+        combined_images.append(combined_image)
+    else:
+        # If no face was found, set class probabilities to None
+        class_probabilities = {emotion: None for emotion in emotions}
+        
+    # Append class probabilities to the list
+    all_class_probabilities.append(class_probabilities)
+In this segment of the script, the list of combined images generated in the previous step is converted back into a video clip, using the ImageSequenceClip function from the moviepy.editor library. The fps parameter (frames per second) is set according to the original video's frame rate, divided by the number of frame skips done earlier.
+
+The video is then displayed in the IPython environment using the ipython_display method. This video visualizes the emotion detection results on a frame-by-frame basis, with each frame displaying the detected face and a bar chart showing the probability distribution of each emotion. The output can provide insightful information about the emotional dynamics throughout the video.
+
+# Convert list of images to video clip
+clip_with_plot = ImageSequenceClip(combined_images,
+                                   fps=vid_fps/skips)  # Choose the frame rate (fps) according to your requirement
+
+# Write the video to a file with a specific frame rate
+clip_with_plot.write_videofile("output_video.mp4", fps=vid_fps/skips)
+
+# Display the clip
+clip_with_plot.ipython_display(width=900)
+
+(click the image to replay the GIF)
+This code segment generates a time-series plot, showcasing the changing probabilities of detected emotions throughout the video. It translates the list of probabilities into a DataFrame, scales them to percentages, and then plots them over time. The distinct color for each emotion provides a clear visual separation.
+
+The resulting visualization can serve as a tool for identifying ranges of time marked by specific emotions. Further, it can be instrumental in pinpointing scenes of significant emotional shift, such as climaxes or turning points in the narrative, providing valuable insights for video analysis.
+
+# Define colors for each emotion
+colors = {
+    "angry": "red",
+    "disgust": "green",
+    "fear": "gray",
+    "happy": "yellow",
+    "neutral": "purple",
+    "sad": "blue",
+    "surprise": "orange"
+}
+
+# Convert list of class probabilities into a DataFrame
+df = pd.DataFrame(all_class_probabilities)
+
+# Convert probabilities to percentages
+df = df * 100
+
+# Create a line plot
+plt.figure(figsize=(15,8))
+for emotion in df.columns:
+    plt.plot(df[emotion], label=emotion, color=colors[emotion])
+
+plt.xlabel('Frame Order')
+plt.ylabel('Emotion Probability (%)')
+plt.title('Emotion Probabilities Over Time')
+plt.legend()
+plt.show()
+
+Conclusion
+This project successfully demonstrated how to apply deep learning to the task of emotion detection in videos using a Transformer-based model, specifically ViT. We accomplished this by analyzing frames from a selected scene in the movie ‘White Chicks’, pinpointing the emotions exhibited by the characters Latrell Spencer and Marcus/Tiffany during a comically memorable car ride.
+
+The results were enlightening, showing clear emotional shifts that matched the progression of the scene. The detected emotions correlated well with the characters’ situations, verifying the efficacy of the model.
+
+Recommendations
+While this model has proven effective for the task, it’s worth noting that improvements can be made. For instance, emotion detection is more complex than merely analyzing facial expressions, as it often incorporates context, dialogue, and body language. Future work could focus on integrating these additional factors for a more holistic understanding.
+
+Moreover, processing efficiency could be improved, especially for high-resolution videos. Implementing batch processing or utilizing hardware acceleration techniques can help in this regard.
+
+Lastly, the model’s performance in different lighting conditions and with varying facial orientations can be evaluated and improved. It’s essential to ensure robust performance across diverse real-world scenarios for more accurate and reliable emotion detection.
+
+Generative AI Documentation
+The application of OpenAI’s GPT-4, or ChatGPT, was a key component in the execution of this project. Its integration spanned several stages of the project:
+
+Ideation: The AI model was utilized as a brainstorming partner, outlining the project’s objectives and the steps to achieve them.
+Coding Assistance: ChatGPT was a reliable assistant for solving coding challenges, including error understanding, debugging, and providing solutions for complex coding tasks.
+Documentation and Commenting: The AI model guided the process of commenting on code and documenting procedures, explaining complex tasks in simple, accessible language.
+Storytelling: ChatGPT was employed to craft a compelling narrative around the project’s purpose, findings, and implications, aiding in contextualizing the technical work in a broader context.
+Report Writing & Proofreading: ChatGPT was instrumental in writing this report, ensuring clarity, precision, and readability while also being a proficient proofreader.
+This project’s successful completion underscores the invaluable role AI models such as ChatGPT can play in modern scientific research and development. From ideation to final report writing, ChatGPT has proven to be a versatile tool, enhancing productivity, reducing cognitive load, and improving the communication of complex ideas. This experience strongly suggests considering such AI tools for future scientific endeavors.
