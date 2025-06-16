@@ -14,10 +14,10 @@ Darba zinātniskais vadītājs: Anita Jansone
 Darba apjoms: n lappuses, n attēli, n tabulas, n diagrammas, n pielikumi
 Atslēgas vārdi: Mākslīgais intelekts, Emociju atpazīšana, Personalizēta mācīšanās, E-mācīšanās, Dabīgās valodas apstrāde (NLP), Studenta iesaiste, Mašīnmācīšanās izglītībā.
 Pētījuma mērķis: Izanalizēt, kā mākslīgais intelekts var tikt izmantots personalizēta emocionālā atbalsta nodrošināšanai e-mācību vidē, lai uzlabotu studentu emocionālo labizjūtu un mācību iesaisti.
-Darba saturs: 
-Pētījuma metodes: 
-Darba rezultāti: 
-Darba izmantojamība: 
+Darba saturs: Darbs sastāv no 5 nodaļām. 1. nodaļā tiek aplūkota emociju loma mācību procesā un motivācijā, mākslīgā intelekta attīstība izglītībā, emociju atpazīšana un dabīgās valodas apstrāde (NLP) e-mācībās, esošās ar mākslīgo intelektu darbinātas personalizētās un adaptīvās mācību sistēmas, kā arī pētījumu trūkumi un izaicinājumi. 2. nodaļā tiek analizēts pētījuma dizains un pieeja, mākslīgā intelekta rīku salīdzinošā analīze, eksperimentālo prototipu izstrāde, lietotāju pētījumi un datu vākšana, datu apstrāde, normalizēšana, anonimizēšana, novērtēšanas kritēriji, atbilstība ētikas standartiem un datu aizsardzībai. 3. nodaļā tiek aprakstīta prototipa e-mācību sistēma, mākslīgā intelekta emociju atpazīšanas un dabīgās valodas apstrādes rīku integrācija, platformas arhitektūra un tehniskie risinājumi, datu iegūšanas un apstrādes process. 4. nodaļā tiek veikta kvantitatīvā un kvalitatīvā analīze, mākslīgā intelekta rīku un pieeju salīdzinošais novērtējums. 5. nodaļā tiek veikta rezultātu interpretācija, teorētisko un praktisko aspektu izvērtēšana, kā arī pētījuma ierobežojumu apskate.
+Pētījuma metodes: Literatūras apskats - Veikt plašu esošo pētījumu pārskatu par ar mākslīgo intelektu darbinātu emociju atpazīšanu, dabīgās valodas apstrādi (NLP) izglītībā un adaptīvajām e-mācību sistēmām. Identificēt pētījumu trūkumus, labākās prakses un veiksmīgus gadījumu izpētes piemērus. Sistemātiska salīdzinošā analīze – identificēt un izvēlēties labākos mākslīgā intelekta rīkus, kas piemēroti integrācijai e-mācību vidē. Novērtēšana, balstoties uz kritērijiem: precizitāte, darbība reāllaikā, privātums, integrācijas elastība un personalizācija. Eksperimentālā prototipa izstrāde – izstrādāt prototipa e-mācību modeli ar integrētiem mākslīgā intelekta emociju atpazīšanas un NLP rīkiem. Nodrošināt, lai prototips spētu savākt reāllaika datus par studentu, apstrādāt emocionālos signālus un pielāgot mācību ceļus personalizācijai. Testēšana un lietotāju izpēte – veikt eksperimentus ar reāliem lietotājiem, kuri mijiedarbojas ar prototipu. Savākt gan kvantitatīvos datus (sistēmas rādītājus, iesaistes rādītājus), gan kvalitatīvos datus (lietotāju atsauksmes, intervijas). Salīdzinošā analīze – salīdzināt mākslīgā intelekta rīku veiktspēju ar iepriekš noteiktiem kritērijiem. Izdarīt secinājumus un novērtējumus, balstoties uz eksperimentu rezultātiem. Kvantitatīvā un kvalitatīvā datu analīze – aprēķināt emociju atpazīšanas precizitāti, aizturi (darbība reāllaikā) un novērtēt uzlabojumus iesaistē un mācību rezultātos (pirms un pēc testiem). Analizēt lietotāju atsauksmes par adaptivitāti, privātumu un lietojamību. Datu apstrāde – savākt datus no lietotāju mijiedarbības ar prototipu (emocionālās reakcijas, iesaistes rādītāji, mācību rezultāti). Apstrādāt datus, veicot normalizāciju, anonimizāciju un pazīmju ieguvi. Glabāt tikai nepieciešamos, anonimizētos datus, ievērojot GDPR un ētikas standartus.
+Darba rezultāti: Pētījums parāda, kuri mākslīgā intelekta rīki un metodes ir visefektīvākie personalizēta emocionālā atbalsta nodrošināšanai e-mācību vidē gan no tehniskā, gan lietotāju pieredzes viedokļa, kā arī sniedz praktiskus ieteikumus turpmākai ieviešanai.
+Darba izmantojamība: Darbs ir vērtīgs praktiķiem un pētniekiem, kuri vēlas ieviest vai pētīt ar mākslīgo intelektu darbinātu emocionālo atbalstu izglītībā, nodrošinot ētisku, efektīvu un uz studentu centrētu digitālo mācību vidi.
  
 Annotation
 Author of the paper: Zanda Aivita Cīrule
@@ -28,46 +28,47 @@ Consultant of the paper: Anita Jansone
 Volume of the paper: n pages, n images, n tables, n diagrams, n appendixes.
 Key words: Artificial Intelligence, Emotion Recognition, Personalized Learning, E-Learning, Natural Language Processing (NLP), Student Engagement, Machine Learning in Education.
 Aim of the research: To analyze how artificial intelligence can be personalized to provide emotional support in e-learning environments to improve students' emotional well-being and learning engagement.
-Content of the paper: 
-Methods of research: 
-Results of the research: 
-Applicability of the paper: 
+Content of the paper: The work consists of 5 chapters. In 1. Chapter we look at the role of emotions in learning and motivation, advanced in AI for education, emotion recognition and NLP in e-learning, existing AI-driven personalized and adaptive learning systems, research gaps and challenges. In 2. Chapter we look at research design and approach, benchmarking of AI tools, development of experimental prototypes, user studies and data collection, data processing, normalization, anonymization, evaluation criteria, compliance with ethical standards and data protection. In 3. Chapter we look at descriptions of the prototype e-learning system, integration of AI emotion recognition and NLP tools, platform architecture and technical solutions, data acquisition and processing pipeline. In 4. Chapter we look at quantitative and qualitative analysis, comparative evaluation of AI tools and approaches. In 5. Chapter we look at interpretation of results, theoretical and practical implications, limitations of the study.
+Methods of research: Literature Review – Conduct and extensive review of existing research on AI-driven emotion recognition, NLP in education, and adaptive e-learning systems. Identify research gaps, best practices, and successful case studies. Systematic Benchmarking – Identify and select the best AI tools relevant to e-learning integration. Evaluation based on criteria: accuracy, real-time capability, privacy, integration flexibility, and personalization. Experimental Prototype Development - Develop a prototype e-learning model with integrated AI emotion recognition and NLP tools. Ensure the prototype can collect real-time learner data, process emotional cues, and adapt learning paths for personalization. Testing and User Studies - Conduct experiments with real users interacting with the prototype. Collect both quantitative data (system metrics, engagement scores) and qualitative data (user feedback, interviews). Comparative Analysis - Compare the performance of AI tools against predefined criteria. Draw conclusions and evaluations from experimental results. Quantitative and Quantitative Data Analysis - Calculate emotion recognition accuracy, latency (real-time feedback), and measure improvements in engagement and learning outcomes (pre- and post-tests). Analyze user feedback on adaptivity, privacy, and usability. Data Handling - Gather data from user interactions within the prototype (emotional reactions, engagement metrics, learning outcomes). Process data via normalization, anonymization, and feature extraction. Store only necessary, anonymized data in compliance with GDPR and ethical standards.
+Results of the research: The research demonstrates which AI tools and methods are most effective for providing personalized emotional support in e-learning environments, both from a technical and user-experience perspective, and provides practical recommendations for future implementation.
+Applicability of the paper: The paper is valuable for practitioners and researchers aiming to implement or investigate AI-driven emotional support in education, ensuring ethical, effective, and student-centered digital learning environments.
  
 Content
-Annotation	3
-Introduction	5
-1. Literature Review	8
-1.1. The role of emotions in learning and motivation	8
-1.2. Advances in Artificial Intelligence for education	8
-1.3. Emotion recognition and Natural Language Processing (NLP) in e-learning	8
-1.4. Existing AI-driven personalized and adaptive learning systems	8
-1.5. Research gaps and challenges	8
-2. Research Methodology	9
-2.1. Research design and approach	9
-2.2. Benchmarking of AI tools	9
-2.3. Development of experimental prototypes	9
-2.4. User studies and data collection	9
-2.5. Data processing, normalization, and anonymization	9
-2.6. Evaluation criteria	9
-2.6. Compliance with ethical standards and data protection	9
-3. Implementation	10
-3.1 Description of the prototype e-learning system	10
-3.2 Integration of AI emotion recognition and NLP tools	10
-3.3 Platform architecture and technical solutions	10
-3.4. Data acquisition and processing pipeline	10
-4. Experimental Results and Analysis	11
-4.1. Quantitative analysis	11
-4.2. Qualitative analysis	11
-4.3. Comparative evaluation of AI tools and approaches	11
-5. Discussion	12
-5.1. Interpretation of results in the context of research objectives	12
-5.2. Theoretical implications and contributions	12
-5.3. Practical significance for e-learning practice	12
-5.4. Limitations of the study	12
-Conclusions and Recommendations	13
-List of Abbreviantions	14
-References	15
-Appendices	17
+Annotation	4
+Introduction	7
+1. Literature Review	10
+1.1. The role of emotions in learning and motivation	10
+1.2. Advances in Artificial Intelligence for education	10
+1.3. Emotion recognition and Natural Language Processing (NLP) in e-learning	10
+1.4. Existing AI-driven personalized and adaptive learning systems	10
+1.5. Research gaps and challenges	10
+2. Research Methodology	11
+2.1. Research design and approach	11
+2.2. Benchmarking of AI tools	11
+2.3. Development of experimental prototypes	11
+2.4. User studies and data collection	11
+2.5. Data processing, normalization, and anonymization	11
+2.6. Evaluation criteria	11
+2.6. Compliance with ethical standards and data protection	11
+3. Implementation	12
+3.1 Description of the prototype e-learning system	12
+3.2 Integration of AI emotion recognition and NLP tools	12
+3.3 Platform architecture and technical solutions	12
+3.4. Data acquisition and processing pipeline	12
+4. Experimental Results and Analysis	13
+4.1. Quantitative analysis	13
+4.2. Qualitative analysis	13
+4.3. Comparative evaluation of AI tools and approaches	13
+5. Discussion	14
+5.1. Interpretation of results in the context of research objectives	14
+5.2. Theoretical implications and contributions	14
+5.3. Practical significance for e-learning practice	14
+5.4. Limitations of the study	14
+Conclusions and Recommendations	15
+List of Abbreviantions	16
+References	17
+Appendices	19
+Master’s thesis mind map	20
 
  
 Introduction
